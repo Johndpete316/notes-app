@@ -126,7 +126,7 @@ const NoteList: React.FC<NoteListProps> = ({ setActiveNote, UserID, updateActive
               </button>
               <button
                 className="cancel-delete"
-                onClick={(e) => handleDeleteConfirmation(note.id)}
+                onClick={() => handleDeleteConfirmation(note.id)}
               >
                 No
               </button>
@@ -134,7 +134,7 @@ const NoteList: React.FC<NoteListProps> = ({ setActiveNote, UserID, updateActive
           ) : (
             <button
               className="delete-note"
-              onClick={(e) => handleDeleteConfirmation(note.id)}
+              onClick={() => handleDeleteConfirmation(note.id)}
             >
               <i className="fas fa-trash-alt"></i>
             </button>
