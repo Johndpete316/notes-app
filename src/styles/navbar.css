@@ -1,10 +1,12 @@
+@import './index.css';
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #222;
+    background-color: var(--nav-bar-color);
     padding: 1rem;
-    color: white;
+    color: var(--text-color);
     width: 100%;
     position: fixed;
     top: 0;
@@ -30,7 +32,7 @@
     padding: 1rem;
     border-radius: 5px;
     z-index: 1;
-    background-color: rgba(51, 51, 51, 0.95);
+    background-color: var(--dropdown-background-color);
     /* Add slight transparency */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     /* Add a subtle shadow */
@@ -41,7 +43,7 @@
 .dropdown a {
     display: block;
     text-decoration: none;
-    color: white;
+    color: var(--text-color);
     padding: 0.5rem 1rem;
     white-space: nowrap;
     /* Prevent text from wrapping to multiple lines */

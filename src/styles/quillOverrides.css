@@ -1,18 +1,20 @@
+@import './index.css';
+
 .ql-snow .ql-stroke {
-    stroke: #fff;
+    stroke: var(--ql-stroke-style);
 }
 
 .ql-snow .ql-picker {
-    color: #ffffff;
+    color: var(--ql-stroke-style);
 }
 
 .ql-snow .ql-picker-options {
-    background-color: #3d3d3d;
+    background-color: #bebebe;
 }
 .ql-toolbar.ql-snow .ql-picker-options {
     border: none;
 }
 
 .ql-toolbar .ql-snow {
-    border: #3d3d3d;
+    border: #000000;
 }

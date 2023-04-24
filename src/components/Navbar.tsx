@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, logout, signInWithGoogle } from '../firebase'
+import { useTheme } from '../ThemeContext'
 import '../styles/navbar.css'
 
 const Navbar = () => {
 
     const [user, loading ] = useAuthState(auth)
     const [showDropdown, setShowDropdown] = useState(false);
+    const { toggleTheme } = useTheme();
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -39,6 +41,7 @@ const Navbar = () => {
                     </div>
                     <div className={`dropdown${showDropdown ? " show-dropdown" : ""}`}>
                         <a onClick={handleLogout}>Logout</a>
+                        <button onClick={toggleTheme}>Toggle theme</button>
                     </div>
                 </div>
             )}
