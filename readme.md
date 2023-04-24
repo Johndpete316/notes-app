@@ -21,6 +21,49 @@ Any changes made to a note's title or content are saved to Firestore using the `
 
 When a user deletes a note, the `deleteNote` function is called, which deletes the note from Firestore and removes it from the list displayed in the `NoteList` component.
 
+## Deployment
+
+The notes app was deployed to Firebase Hosting using the following process:
+
+### Prerequisites
+
+1. The Firebase CLI was installed by running `npm install -g firebase-tools`.
+2. The Firebase account was logged in by running `firebase login`.
+
+### Deployment Process
+
+1. The application was built for production by running the following command in the project directory:
+
+```
+npm run build
+```
+
+This created an optimized build in the `build` folder.
+
+2. A Firebase project was initialized by running the following command in the project directory:
+
+```
+firebase init
+```
+
+This started a guided setup process. "Hosting" was selected when prompted for which Firebase features to set up.
+
+3. Firebase project settings were configured as follows:
+   - An existing Firebase project was chosen.
+   - The public directory was set to `dist`.
+   - The app was configured as a single-page app (SPA).
+   - Automatic builds and deploys with GitHub were not set up in this case.
+
+4. The app was deployed to Firebase Hosting by running the following command in the project directory:
+
+```
+firebase deploy
+```
+
+Once the deployment was complete, a URL was provided to access the deployed app (e.g., `https://your-app-name.web.app`).
+
+The notes app was successfully deployed to Firebase Hosting using the above process.
+
 ## Credits
 
 🤖 ChatGPT
