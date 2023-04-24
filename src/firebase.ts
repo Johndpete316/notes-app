@@ -6,6 +6,7 @@ import {
     query,
     doc,
     getDocs,
+    getDoc,
     setDoc,
     collection,
     where, deleteDoc
@@ -75,16 +76,43 @@ const getNoteById = async (noteId: string, userId: string): Promise<Note | undef
         const q = query(collection(db, 'users', userId, 'notes'), where('id', '==', noteId));
         const querySnapshot = await getDocs(q);
 
-        if(!querySnapshot.empty) {
+        if (!querySnapshot.empty) {
             const doc = querySnapshot.docs[0].data() as Note;
             return doc;
         }
     } catch (error) {
-        console.log(error) 
+        console.log(error)
     }
 
 }
 
+// last active note
+
+const updateLastActiveNote = async (userId: string, noteId: string) => {
+    try {
+        const userSettingsRef = doc(db, 'users', userId, 'userSettings', 'lastActiveNote');
+        await setDoc(userSettingsRef, { noteId }, { merge: true });
+        console.log(`updatedLastActiveNote: ${noteId} : success`);
+    } catch (error) {
+        console.error('Error updating last active note: ', error);
+    }
+};
+
+const getLastActiveNote = async (userId: string): Promise<string | undefined> => {
+    if (!userId) return;
+
+    try {
+        const userSettingsRef = doc(db, 'users', userId, 'userSettings', 'lastActiveNote');
+        const userSettingsDoc = await getDoc(userSettingsRef);
+
+        if (userSettingsDoc.exists()) {
+            const data = userSettingsDoc.data();
+            return data.noteId;
+        }
+    } catch (error) {
+        console.error('Error getting last active note: ', error);
+    }
+};
 
 // auth
 
@@ -126,5 +154,7 @@ export {
     updateNote,
     deleteNote,
     getNotes,
-    getNoteById
+    getNoteById,
+    updateLastActiveNote,
+    getLastActiveNote
 }

@@ -1,7 +1,7 @@
 // src/components/Dashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../firebase';
+import { auth, getLastActiveNote, getNoteById } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
 // models
@@ -21,12 +21,29 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         if (loading) return
         if (!user) navigate('/')
-        if(error) navigate('/')
+        if (error) navigate('/')
     }, [user, loading, error, navigate])
 
-    
-    const updateActiveNoteTitle = (newTitle: string ) => {
-        if(activeNote) {
+    useEffect(() => {
+        if(!user) return;
+        const fetchLastActiveNote = async () => {
+            const lastActiveNoteId = await getLastActiveNote(user.uid);
+
+            if (lastActiveNoteId) {
+                const fetchedNote = await getNoteById(lastActiveNoteId, user.uid);
+                if (fetchedNote) {
+                    setActiveNote(fetchedNote);
+                }
+            }
+        };
+
+        if (user.uid) {
+            fetchLastActiveNote();
+        }
+    }, [user, setActiveNote]);
+
+    const updateActiveNoteTitle = (newTitle: string) => {
+        if (activeNote) {
             setActiveNote({
                 ...activeNote,
                 title: newTitle
@@ -34,11 +51,11 @@ const Dashboard: React.FC = () => {
         }
     }
 
-    if(!user) return null;
+    if (!user) return null;
 
     return (
         <div className="dashboard">
-            <Sidebar UserID={user.uid} setActiveNote={setActiveNote} 
+            <Sidebar UserID={user.uid} setActiveNote={setActiveNote}
                 updateActiveNoteTitle={updateActiveNoteTitle}
             />
             {activeNote && <NoteEditor key={activeNote.id} activeNote={activeNote} setActiveNote={setActiveNote} UserID={user.uid} />}

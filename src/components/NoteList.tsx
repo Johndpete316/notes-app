@@ -1,6 +1,6 @@
 // src/components/NoteList.tsx
 import React, { useState, useEffect, useCallback } from "react";
-import { updateNote, getNotes, deleteNote, getNoteById } from "../firebase";
+import { updateNote, getNotes, deleteNote, getNoteById, updateLastActiveNote } from "../firebase";
 import { debounce } from 'lodash';
 
 // models
@@ -45,6 +45,7 @@ const NoteList: React.FC<NoteListProps> = ({ setActiveNote, UserID, updateActive
     const fetchedNote = await getNoteById(note.id, UserID);
     if (fetchedNote) {
       setActiveNote(fetchedNote);
+      await updateLastActiveNote(UserID, note.id);
     }
   };
 
