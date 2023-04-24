@@ -35,10 +35,11 @@ The notes app was deployed to Firebase Hosting using the following process:
 1. The application was built for production by running the following command in the project directory:
 
 ```
-npm run build
+npm run 
+
 ```
 
-This created an optimized build in the `build` folder.
+This created an optimized build in the `dist` folder.
 
 2. A Firebase project was initialized by running the following command in the project directory:
 
