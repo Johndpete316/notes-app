@@ -36,7 +36,6 @@ The notes app was deployed to Firebase Hosting using the following process:
 
 ```
 npm run 
-
 ```
 
 This created an optimized build in the `dist` folder.
